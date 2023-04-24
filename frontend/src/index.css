@@ -94,4 +94,14 @@ a:hover {
   color: #000;
 }
 
+#modal1 {
+  width: 800px;
+  height: 600px;
+  position: center;
+}
+
+#modalDiv {
+  text-align: center;
+}
+
   

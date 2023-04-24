@@ -91,7 +91,17 @@ const Calendar = () => {
         </thead>
         <tbody id="calendar-body">{buildCalendar()}</tbody>
       </table>
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}/>
+      <Modal id = "modal1" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+        <div id="modalDiv">
+          <h1>Enter in your schedule for: {selectedDate}</h1>
+          <h2>Enter title of your task:</h2>         
+            <input/>
+            <button>Submit</button>
+          <h2>Enter description of your task:</h2>         
+          <input/>
+          <button>Submit</button>
+        </div>
+      </Modal>
      </div>
     )
 }
