@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -8,8 +8,21 @@ const Calendar = () => {
     const [month, setMonth] = useState(date.getMonth());
     const [year, setYear] = useState(date.getFullYear());
     const [selectedDate, setSelectedDate] = useState(null);
-    const [eventsDetails, setEventsDetails] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [tasks, setTasks] = useState(null);
+
+    //Fetch data from database
+    useEffect(() => {
+      const fetchTasks = async () => {
+        const res = await fetch('http://localhost:4008/api/tasks')
+        const json = await res.json()
+        
+        if (res.ok) {
+          setTasks(json)
+        }
+      }
+      fetchTasks()
+    } , [])
 
     function prevMonth() {
         setMonth(month <= 0 ? 11 : month -1);
@@ -20,10 +33,6 @@ const Calendar = () => {
       function nextMonth() {
         setMonth(month >= 11 ? 0 : month + 1);
         setYear(month >= 11 ? year + 1 : year);
-      }
-
-      function addEvent(date, eventDetails){
-        setEventsDetails(...eventsDetails, {date, eventDetails});
       }
 
       function handleDateClick(date){
@@ -56,6 +65,11 @@ const Calendar = () => {
           cells.push(
             <td key={j} onClick = {() => handleDateClick(date)}>
             {daysCounter}
+            {/* <div className="tasks">
+              { tasks && tasks.map(() =>  (
+                <p><p/>
+              ))}
+            </div> */}
           </td>
           );
         }
