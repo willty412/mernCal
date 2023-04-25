@@ -14,7 +14,7 @@ const Calendar = () => {
     //Fetch data from database
     useEffect(() => {
       const fetchTasks = async () => {
-        const res = await fetch('http://localhost:4008/api/tasks')
+        const res = await fetch('/api/tasks')
         const json = await res.json()
         
         if (res.ok) {
@@ -65,9 +65,11 @@ const Calendar = () => {
           cells.push(
             <td key={j} onClick = {() => handleDateClick(date)}>
             {daysCounter}
-            {/* <div className="tasks">
-              { tasks && tasks.map(() =>  (
-                <p><p/>
+            
+            {/* Praces the one task on all days*/ 
+            /* <div className="tasks">
+              {tasks && tasks.map(task => (
+                <p key={task._id}>{task.title}</p>
               ))}
             </div> */}
           </td>
