@@ -20,6 +20,8 @@ const getTask = async (req, res) => {
     res.status(200).json(task)
 }
 
+
+
 //create a task
 const createTask = async (req, res) => {
     const { title, description, startDate, completed } = req.body
@@ -35,8 +37,42 @@ const createTask = async (req, res) => {
 
 }
 
+const deleteTask = async (req, res) => {
+    const { id } = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        res.status(404).json({error: "Task not found"})
+    }
+
+    const task = await Task.findByIdAndDelete(id)
+    if(!task){
+        res.status(404).json({error: "Task not found"})
+    }
+
+    res.status(200).json({message: "Task deleted successfully"})
+}
+
+const updateTask = async (req, res) => {
+    const { id } = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        res.status(404).json({error: "Task not found"})
+    }
+
+    const workout = await Task.findOneAndUpdate({_id: id}, {
+        ...req.body
+    })
+
+    if(!workout){
+        res.status(404).json({error: "Task not found"})
+    }
+
+    res.status(200).json(workout)
+}
+
 module.exports = {
     getTask,
     createTask,
-    getTasks
+    getTasks,
+    deleteTask,
+    updateTask
 }

@@ -16,7 +16,7 @@ const taskSchema = new Schema({
         },
         completed: {
             type: Boolean,
-            required: true
+            required: false
         },
 }, {timestamps: true})
 

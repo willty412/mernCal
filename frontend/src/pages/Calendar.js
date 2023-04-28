@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import TaskDetails from '../components/TaskDetails';
+import TaskForm from '../components/TaskForm';
+import { useTasksContext } from '../hooks/useTasksContext';
+
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -9,7 +13,8 @@ const Calendar = () => {
     const [year, setYear] = useState(date.getFullYear());
     const [selectedDate, setSelectedDate] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [tasks, setTasks] = useState(null);
+    //const [tasks, setTasks] = useState(null);
+    const {tasks, dispatch} = useTasksContext();
 
     //Fetch data from database
     useEffect(() => {
@@ -18,7 +23,7 @@ const Calendar = () => {
         const json = await res.json()
         
         if (res.ok) {
-          setTasks(json)
+          dispatch({type: 'SET_TASKS', payload: json})
         }
       }
       fetchTasks()
@@ -39,14 +44,6 @@ const Calendar = () => {
         setSelectedDate(date);
         setModalIsOpen(true);
       }
-
-      // function handleEventSubmit(e){
-      //   e.preventDefault();
-      //   addEvent(selectedDate, eventsDetails);
-      //   setSelectedDate(null);
-      //   setEventsDetails("");
-      //   setModalIsOpen(false);
-      // }
     
     function buildCalendar(){
     let rows = [];
@@ -69,7 +66,7 @@ const Calendar = () => {
             {daysCounter}
             <div className="tasks">
               {tasksForDay && tasksForDay.map(task => (
-                <p key={task._id}>{task.title}</p>
+                <TaskDetails key={task._id} task={task} />
               ))}
             </div>
           </td>
@@ -108,15 +105,7 @@ const Calendar = () => {
         <tbody id="calendar-body">{buildCalendar()}</tbody>
       </table>
       <Modal id = "modal1" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <div id="modalDiv">
-          <h1>Enter in your schedule for: {selectedDate}</h1>
-          <h2>Enter title of your task:</h2>         
-            <input/>
-            <button>Submit</button>
-          <h2>Enter description of your task:</h2>         
-          <input/>
-          <button>Submit</button>
-        </div>
+        <TaskForm date={selectedDate}/>
       </Modal>
      </div>
     )
