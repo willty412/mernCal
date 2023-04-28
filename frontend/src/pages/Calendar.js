@@ -61,17 +61,17 @@ const Calendar = () => {
           cells.push(<td key={j}></td>);
         }else if(daysCounter < numDays){
           daysCounter++;
-          const date = new Date(year, month, daysCounter).toDateString();
+          const date = new Date(year, month, daysCounter);
+          const tasksForDay = tasks ? tasks.filter(task => task.startDate === date.toISOString()) : null;
+          const dateUse = date.toDateString();
           cells.push(
-            <td key={j} onClick = {() => handleDateClick(date)}>
+            <td key={j} onClick = {() => handleDateClick(dateUse)}>
             {daysCounter}
-            
-            {/* Praces the one task on all days*/ 
-            /* <div className="tasks">
-              {tasks && tasks.map(task => (
+            <div className="tasks">
+              {tasksForDay && tasksForDay.map(task => (
                 <p key={task._id}>{task.title}</p>
               ))}
-            </div> */}
+            </div>
           </td>
           );
         }
