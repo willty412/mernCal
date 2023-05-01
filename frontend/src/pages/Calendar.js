@@ -62,7 +62,7 @@ const Calendar = () => {
           const tasksForDay = tasks ? tasks.filter(task => task.startDate === date.toISOString()) : null;
           const dateUse = date.toDateString();
           cells.push(
-            <td key={j} onClick = {() => handleDateClick(dateUse)}>
+            <td key={j} onClick = {() => handleDateClick(date.toISOString(), tasksForDay)}>
             {daysCounter}
             <div className="tasks">
               {tasksForDay && tasksForDay.map(task => (

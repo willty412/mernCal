@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTasksContext } from '../hooks/useTasksContext';
+import TaskDetails from '../components/TaskDetails';
 
 const TaskForm = ({date}) => {
-    const { dispatch } = useTasksContext()
+    const { tasks, dispatch } = useTasksContext()
     const [title, setTitle] = useState('')    
     const [description, setDescription] = useState('')
     const [comepleted, setComepleted] = useState(true)
     const [startDate, setStartDate] = useState(date)
     const [error, setError] = useState(null)
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -37,9 +39,32 @@ const TaskForm = ({date}) => {
         }
     }
 
+    //Fetch data from database
+    useEffect(() => {
+        const fetchTasks = async () => {
+          const res = await fetch('/api/tasks')
+          const json = await res.json()
+          
+          if (res.ok) {
+            dispatch({type: 'SET_TASKS', payload: json})
+          }
+        }
+        fetchTasks()
+      } , [])
+
+    function taskOfDay(){
+        const tasksForDay = tasks ? tasks.filter(task => task.startDate === date) : null;
+        return(
+        <div className="tasks">
+        {tasksForDay && tasksForDay.map(task => (
+            <TaskDetails key={task._id} task={task} />
+          ))}
+        </div>)
+    }
+
     return (
         <form className="create" onSubmit={handleSubmit}>
-            <h3>Add a New Task</h3>
+            <h3>Add a New Task for, {date} </h3>
             <label>Task title:</label>
             <input
                 type = "text"
@@ -55,10 +80,15 @@ const TaskForm = ({date}) => {
              />
 
              <button>Submit Task</button>
+             <h3>Current Tasks for today:</h3>
+             <p>{taskOfDay()}</p>
+  
         </form>
+        
     )
 
 
 }
 
-export default TaskForm
+
+export default TaskForm;
