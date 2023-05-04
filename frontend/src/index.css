@@ -104,4 +104,87 @@ a:hover {
   text-align: center;
 }
 
+
+.create {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin: 1rem;
+}
+
+.create h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.create label {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.create input[type="text"] {
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.create button {
+  background-color: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.tasks {
+  margin-top: 1rem;
+}
+
+.tasks p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.tasks ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tasks li {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.task-details {
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.task-details h2 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.task-details p {
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+
+
+
+
   

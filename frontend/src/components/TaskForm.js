@@ -82,7 +82,8 @@ const TaskForm = ({date}) => {
              <button>Submit Task</button>
              <h3>Current Tasks for today:</h3>
              <p>{taskOfDay()}</p>
-  
+
+
         </form>
         
     )
