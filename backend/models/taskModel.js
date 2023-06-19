@@ -1,3 +1,9 @@
+/*
+Tyler Williams
+CPS420
+Spring 2023
+*/
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 

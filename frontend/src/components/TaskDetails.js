@@ -1,3 +1,9 @@
+/*
+Tyler Williams
+CPS420
+Spring 2023
+*/
+
 import { useTasksContext } from '../hooks/useTasksContext'
 
 const TaskDetails = ({task}) => {

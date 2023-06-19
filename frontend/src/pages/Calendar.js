@@ -1,3 +1,9 @@
+/*
+Tyler Williams
+CPS420
+Spring 2023
+*/
+
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import TaskDetails from '../components/TaskDetails';
